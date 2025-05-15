@@ -1,0 +1,19 @@
+﻿<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+    <TargetFrameworks>net9.0-windows;net8.0-windows</TargetFrameworks>
+    <Nullable>enable</Nullable>
+    <ImplicitUsings>enable</ImplicitUsings>
+    <IsPackable>false</IsPackable>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <!-- This PackageReference doesn't flow into PackageLibrary because of the PrivateAssets="all"
+         metadata on the ProjectReference item. PrivateAssets is required as otherwise this library
+         would be marked as a package dependency but as this library isn't packable, restore would fail.
+         Therefore all dependencies in child projects need to be copied into the root (PackageLibrary).
+         Not great but I can't think of any solution that doesn't require a NuGet Pack feature. -->
+    <PackageReference Include="Microsoft.Extensions.Caching.Memory" Version="8.0.1" />
+  </ItemGroup>
+
+</Project>
